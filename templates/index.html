@@ -1,0 +1,21 @@
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.email.label }}<br>
+        {{ form.email(size=32) }}
+    </p>
+    <p>
+        {{ form.rss.label }}<br>
+        {{ form.rss(size=32) }}
+    
+    <output>
+        {{ form.rssList(size=64) }}<br>
+    </output>
+    </p>
+    <p>
+        {{ form.save() }}
+        {{ form.send() }}
+    </p>
+
+    
+</form>
