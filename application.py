@@ -8,12 +8,11 @@ app.config['SECRET_KEY'] = 'KEY'
 test = {"author": "Mike",
         "text": "My first blog post!"}
 
-
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     indexForm = IndexForm()
     return render_template("index.html", title="Index", form=indexForm)
+
+if __name__ == '__main__':
+        app.run(host='0.0.0.0')

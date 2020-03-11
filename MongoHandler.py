@@ -8,5 +8,3 @@ class MongoHandler:
         posts = db.posts
     def getCollection():
         self.collection = self.db['emails']
-    def insert():
-        
