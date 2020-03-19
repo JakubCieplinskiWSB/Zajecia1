@@ -21,8 +21,11 @@ def parseAndSendEmail(url,email):
         title = "Your RSS Feed"
         content = ""
         for entry in newsFeed.entries:
+                content += "<a href=" + entry.link + ">"
                 content += entry.summary
+                content += "</a>"
                 content += "<br><br>"
+                print(content)
         mail.send(senderEmail, str(email), title, content)
 
 
