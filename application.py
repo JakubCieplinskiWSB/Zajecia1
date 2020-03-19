@@ -17,7 +17,6 @@ mail = MailSender(sendGridAPI)
 
 def parseAndSendEmail(url,email):
         newsFeed = feedparser.parse(url)
-        #title = newsFeed.feed.author
         title = "Your RSS Feed"
         content = ""
         for entry in newsFeed.entries:
