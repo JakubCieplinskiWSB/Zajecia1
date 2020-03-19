@@ -32,9 +32,10 @@ def index():
     indexForm = IndexForm()
     if indexForm.validate_on_submit():
             if indexForm.save.data:
-                content = formContent.getDictionary(indexForm.email.data, indexForm.rss.data)
-                mongo.insert(content)
-                return redirect(url_for('index'))
+                    if indexForm.rss.data:
+                        content = formContent.getDictionary(indexForm.email.data, indexForm.rss.data)
+                        mongo.insert(content)
+                        return redirect(url_for('index'))
             if indexForm.send.data:
                 feeds = mongo.getFeedsForAddress(indexForm.email.data)
                 for feed in feeds:
