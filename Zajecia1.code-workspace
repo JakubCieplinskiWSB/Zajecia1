@@ -5,7 +5,10 @@
 		}
 	],
 	"settings": {
-			"python.pythonPath": "/venv/bin/python",
+			"python.pythonPath": "C:\\Users\\ciepl\\OneDrive\\WSB\\Zajecia1\\venv\\bin\\python",
+			"python.venvFolders": [
+				"C:\\Users\\ciepl\\OneDrive\\WSB\\Zajecia1\\venv"
+			],
 		
 	}
 }

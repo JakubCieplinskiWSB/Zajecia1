@@ -17,10 +17,11 @@ class MongoHandler:
         self.posts = self.db.posts
     def getCollection(self):
         self.collection = self.db['emails']
-    def getDocuments(self):
-        for post in self.posts.find():
-            #pprint.pprint(post)
-            return post
+    def getFeedsForAddress(self, email):
+        feeds = []
+        for post in self.posts.find({'email': str(email)}):
+            feeds.append(post['rss'])
+        return feeds
 
     def insert(self, data):
         self.posts.insert_one(data)

@@ -7,14 +7,12 @@ class MailSender:
         self.sg = SendGridAPIClient(API_KEY)
     
     def send(self, sender, receiver, subject, contentMessage):
-        mail_txt = Content('text/plain', contentMessage)
-        #contentMessage.mimetype = 'text/plain'
+        mail_txt = Content('text/html', contentMessage)
         message = Mail(
             from_email=sender,
             to_emails=receiver,
             subject=subject,
             html_content = mail_txt)
-        #content = Content(type='text/plain', value=message)
         response = self.sg.send(message)
         print(response.status_code)
         print(response.body)
