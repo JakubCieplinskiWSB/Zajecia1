@@ -24,7 +24,6 @@ def parseAndSendEmail(url,email):
                 content += entry.summary
                 content += "</a>"
                 content += "<br><br>"
-                print(content)
         mail.send(senderEmail, str(email), title, content)
 
 
