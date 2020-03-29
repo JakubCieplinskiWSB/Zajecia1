@@ -16,38 +16,35 @@ mail = MailSender(sendGridAPI)
 
 
 def parseAndSendEmail(url,email):
-        newsFeed = feedparser.parse(url)
-        title = "Your RSS Feed"
-        content = ""
+    content = ""
+    title = "Your RSS Feed"
+    for urls in url:
+        newsFeed = feedparser.parse(urls)
+        content += "<h1>"
+        content += newsFeed.channel.title
+        content += "</h1><br>"
         for entry in newsFeed.entries:
                 content += "<a href=" + entry.link + ">"
                 content += entry.summary
                 content += "</a>"
                 content += "<br><br>"
-        mail.send(senderEmail, str(email), title, content)
+    mail.send(senderEmail, str(email), title, content)
 
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     indexForm = IndexForm()
-    if indexForm.validate_on_submit():
-            if indexForm.save.data:
-                    if indexForm.rss.data:
-                        content = formContent.getDictionary(indexForm.email.data, indexForm.rss.data)
-                        mongo.insert(content)
-                        return redirect(url_for('index'))
-            if indexForm.send.data:
-                feeds = mongo.getFeedsForAddress(indexForm.email.data)
-                for feed in feeds:
-                    parseAndSendEmail(feed, indexForm.email.data)
-                return redirect(url_for('index'))
-                
-                
-
+    if indexForm.save.data:
+        if indexForm.rss.data:
+            content = formContent.getDictionary(indexForm.email.data, indexForm.rss.data)
+            mongo.insert(content)
+            return redirect(url_for('index'))
+    if indexForm.send.data:
+        feeds = mongo.getFeedsForAddress(indexForm.email.data)
+        parseAndSendEmail(feeds, indexForm.email.data)
+        return redirect(url_for('index'))
     return render_template("index.html", title="Index", form=indexForm)
-
     
-
 if __name__ == '__main__':
         app.run(host='0.0.0.0')

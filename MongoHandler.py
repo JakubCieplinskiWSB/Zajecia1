@@ -22,6 +22,5 @@ class MongoHandler:
         for post in self.posts.find({'email': str(email)}):
             feeds.append(post['rss'])
         return feeds
-
     def insert(self, data):
         self.posts.insert_one(data)
