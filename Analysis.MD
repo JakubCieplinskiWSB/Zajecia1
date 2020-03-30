@@ -1,0 +1,4 @@
+Z powodu sposobu wykonania aplikacji ciężko jest zmierzyć jej maksymalne obciążenie ponieważ wraz ze wzrostem danych w bazie, spada wydajność zapytania o wysyłkę maili, a co z tym idzie ilość użytkowników jaką jest w stanie obsłużyć w danej jednostce czasu. 
+
+W przypadku gdyby wydajność aplikacji była stała do zmierzenia maksymalnego obciążenia wziąłbym pod uwagę latency oraz ilość błędnych odpowiedzi serwera aplikacji. W testach stopniowo zwiększałbym ilość użytkowników sprawdzając czy latency pozostaje w akceptowalnych granicach(powiedzmy do 200ms) jednocześnie pozostając bez błędnych odpowiedzi na zapytania(lub ich niski procent w stosunku do wszystkich zapytań).
+
