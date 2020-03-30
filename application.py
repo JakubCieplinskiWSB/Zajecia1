@@ -3,7 +3,7 @@ from forms import IndexForm
 from MongoHandler import MongoHandler, formContent
 from MailSender import MailSender
 import feedparser
-import thread
+import _thread
 
 app = Flask(__name__)
 
@@ -43,7 +43,7 @@ def index():
     if indexForm.send.data:
         feeds = mongo.getFeedsForAddress(indexForm.email.data)
         try:
-            thread.start_new_thread(parseAndSendEmail, (feeds, indexForm.email.data))
+            _thread.start_new_thread(parseAndSendEmail, (feeds, indexForm.email.data))
             print("Started thread")
         except:
             print("Error starting thread")
