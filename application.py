@@ -3,6 +3,7 @@ from forms import IndexForm
 from MongoHandler import MongoHandler, formContent
 from MailSender import MailSender
 import feedparser
+import thread
 
 app = Flask(__name__)
 
@@ -13,7 +14,6 @@ senderEmail = 'yourrssfeed@feed.com'
 
 mongo = MongoHandler(uri)
 mail = MailSender(sendGridAPI)
-
 
 def parseAndSendEmail(url,email):
     content = ""
@@ -42,7 +42,12 @@ def index():
             return redirect(url_for('index'))
     if indexForm.send.data:
         feeds = mongo.getFeedsForAddress(indexForm.email.data)
-        parseAndSendEmail(feeds, indexForm.email.data)
+        try:
+            thread.start_new_thread(parseAndSendEmail, (feeds, indexForm.email.data))
+            print("Started thread")
+        except:
+            print("Error starting thread")
+        print()
         return redirect(url_for('index'))
     return render_template("index.html", title="Index", form=indexForm)
     
